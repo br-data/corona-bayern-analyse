@@ -1,13 +1,15 @@
 import './map.scss';
 import { select } from 'd3';
 import { geoPath, geoMercator } from 'd3';
+import { scaleSqrt } from 'd3';
 
 document.addEventListener('DOMContentLoaded', init, false);
 
 async function init() {
   const timelineDataPromise = loadTimelineData()
     .then(({ default: data }) => data);
-  const geoDataPromise = loadGeoData().then(({ default: data }) => data);
+  const geoDataPromise = loadGeoData()
+    .then(({ default: data }) => data);
   const [timelineData, geoData] = await Promise.all([timelineDataPromise, geoDataPromise]);
 
   const container = select('#map');
@@ -15,6 +17,10 @@ async function init() {
   const bounds = container.node().getBoundingClientRect();
   const width = bounds.width;
   const height = bounds.height;
+
+  const scale = scaleSqrt()
+    .domain([0, 100])
+    .range([0, 10]);
 
   const svg = container.append('svg')
     .attr('width', width)
@@ -29,9 +35,31 @@ async function init() {
 
   svg.append('path')
     .attr('d', path(geoData))
-    .attr('fill', 'black')
-    .attr('stroke', 'white');
+    .attr('fill', '#6A6E7F')
+    .attr('stroke', '#3A3C49')
+    .attr('stroke-width', 1.5);
 
+  for (let data of timelineData) {
+    const circleUpdate = svg.selectAll('circle')
+      .data(data, d => d.ags)
+        .attr('fill', 'orange')
+        .attr('fill-opacity', 0.75)
+        .attr('r', d => scale(d.valuePer100Tsd))
+
+    const circleEnter = circleUpdate
+      .enter()
+      .append('circle')
+        .attr('fill', 'green')
+        .attr('cx', d => projection([d.long, d.lat])[0])
+        .attr('cy', d => projection([d.long, d.lat])[1]);
+
+    const circleExit = circleUpdate.exit().remove();
+
+    circleEnter.merge(circleUpdate)
+        .attr('x', (d, i) => i * 16);
+
+    await sleep(1000)
+  }
 
   // handleUpdate();
 
@@ -45,9 +73,18 @@ async function init() {
 }
 
 async function loadTimelineData() {
-  return await import(/* webpackChunkName: "timeline-data" */ '../data/bayern-timeline.json');
+  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-timeline.json');
 }
 
 async function loadGeoData() {
-  return await import(/* webpackChunkName: "geo-data" */ '../data/bayern-counties.geo.json');
+  return await import(/* webpackChunkName: 'geo-data' */ '../data/bayern-counties.geo.json');
 }
+
+async function sleep(milliseconds) {
+  return new Promise(resolve  => {
+    setTimeout(() => {
+      resolve(true);
+    }, milliseconds);
+  });
+}
+
