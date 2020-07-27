@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     filename: 'app.bundle.js',
-    path: path.resolve('./dist')
+    path: path.resolve('./build')
   },
   module: {
     rules: [
@@ -42,7 +42,7 @@ module.exports = {
   ],
   devtool: '#cheap-source-map',
   devServer: {
-    contentBase: path.resolve('./dist'),
+    contentBase: path.resolve('./build'),
     port: 9000
   }
 };
