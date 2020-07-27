@@ -1,8 +1,10 @@
 {
   "extends": "eslint:recommended",
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "rules": {
     "indent": [1, 2, { "SwitchCase": 1 }],
@@ -11,9 +13,10 @@
     "semi": [2, "always"],
     "comma-dangle": [1, "never"],
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
-    "no-console": 0
+    "no-console": 1
   },
   "env": {
+    "browser": true,
     "node": true,
     "es6": true
   }
