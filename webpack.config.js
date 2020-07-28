@@ -10,7 +10,8 @@ module.exports = {
     main: path.resolve('./src/map.js')
   },
   output: {
-    filename: 'app.bundle.js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[name].chunk.js',
     path: path.resolve('./build')
   },
   module: {
