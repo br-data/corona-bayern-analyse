@@ -30,6 +30,12 @@ body {
       width: calc(100% - 100px);
     }
 
+    .play-button {
+      &.playing {
+        background: lightpink;
+      }
+    }
+
     .reset-button {
       margin-right: 1.5em;
     }
