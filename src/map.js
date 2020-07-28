@@ -16,7 +16,10 @@ async function init() {
   const [timelineData, metaData, geoData] = await Promise.all([timelineDataPromise, metaDataPromise, geoDataPromise]);
 
   const container = select('.map');
-  const dateCounter = select('.date');
+  const dateCounterElement = select('.date');
+  const sliderElement = select('.date-input');
+  const playButton = select('.play-button');
+  const resetButton = select('.reset-button');
 
   const bounds = container.node().getBoundingClientRect();
   const width = bounds.width;
@@ -26,18 +29,21 @@ async function init() {
     .domain([0, 100])
     .range([3, 12]);
 
+  const projection = geoMercator()
+    .translate([width/2, height/2])
+    .scale(4500)
+    .center([11.4, 48.9]);
+
+  const path = geoPath().projection(projection);
+
   const svg = container.append('svg')
     .attr('width', width)
     .attr('height', height)
-    .attr('viewBox', '0 0 ' + width + ' ' + height);
+    .attr('viewBox', `0 0 ${width} ${height}`);
 
-  const projection = geoMercator()
-    .translate([width/2, height/2])
-    .scale(5000)
-    .center([11.4, 48.9]);
-  const path = geoPath().projection(projection);
+  const mapGroup = svg.append('g')
 
-  svg.append('path')
+  mapGroup.append('path')
     .attr('d', path(geoData))
     .attr('fill', '#6A6E7F')
     .attr('stroke', '#3A3C49')
@@ -49,7 +55,7 @@ async function init() {
       return Object.assign({}, d, meta);
     })
 
-    const circleUpdate = svg.selectAll('circle')
+    const circleUpdate = mapGroup.selectAll('circle')
       .data(mergedData, d => d.ags)
       .attr('fill', 'orange')
       .attr('fill-opacity', 0.75)
@@ -69,7 +75,7 @@ async function init() {
 
     const circleExit = circleUpdate.exit().remove();
 
-    dateCounter.text(data[0].date);
+    dateCounterElement.text(data[0].date);
 
     await sleep(500)
   }

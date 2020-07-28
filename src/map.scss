@@ -7,7 +7,7 @@ body {
 .map {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 550px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
 
   .date {
@@ -17,4 +17,114 @@ body {
     font-size: 2em;
     color: white;
   }
+
+  .controls {
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    right: 1em;
+    display: flex;
+    align-items: center;
+
+    .date-input {
+      width: calc(100% - 100px);
+    }
+
+    .reset-button {
+      margin-right: 1.5em;
+    }
+  }
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  background: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  font-size: 1em;
+  margin-right: .5em;
+  text-align: center;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1rem;
+  vertical-align: text-top;
+  background: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  outline: none;
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: #A1A5b5;
+  border-radius: .5em;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -8px;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: #A1A5b5;
+  border-radius: .5em;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  background: transparent;
+  border-color: transparent;
+  border-width: 12px 0;
+  color: transparent;
+}
+
+input[type=range]::-ms-thumb {
+  border: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+input[type=range]::-ms-fill-lower,
+input[type=range]::-ms-fill-upper {
+  background: #A1A5b5;
+  border-radius: 5px;
+}
+
+input[type=range]:focus::-ms-fill-lower,
+input[type=range]:focus::-ms-fill-upper {
+  background: #A1A5b5;
 }
