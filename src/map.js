@@ -1,7 +1,8 @@
 import './map.scss';
-import { select } from 'd3';
-import { geoPath, geoMercator } from 'd3';
-import { scaleSqrt } from 'd3';
+import { select, selectAll } from 'd3-selection';
+import { geoPath, geoMercator } from 'd3-geo';
+import { scaleSqrt } from 'd3-scale';
+import 'd3-transition';
 
 document.addEventListener('DOMContentLoaded', init, false);
 
@@ -50,21 +51,23 @@ async function init() {
 
     const circleUpdate = svg.selectAll('circle')
       .data(mergedData, d => d.ags)
-        .attr('fill', 'orange')
-        .attr('fill-opacity', 0.75)
-        .attr('r', d => d.valuePer100Tsd ? scale(d.valuePer100Tsd) : 0)
+      .attr('fill', 'orange')
+      .attr('fill-opacity', 0.75)
+
+    circleUpdate
+      .transition()
+      .duration(500)
+      .attr('r', d => d.valuePer100Tsd ? scale(d.valuePer100Tsd) : 0);
 
     const circleEnter = circleUpdate
       .enter()
       .append('circle')
-        .attr('fill', 'green')
-        .attr('cx', d => projection([d.long, d.lat])[0])
-        .attr('cy', d => projection([d.long, d.lat])[1]);
+      .attr('fill', 'green')
+      .attr('id', d => `ags-${d.ags}`)
+      .attr('cx', d => projection([d.long, d.lat])[0])
+      .attr('cy', d => projection([d.long, d.lat])[1]);
 
     const circleExit = circleUpdate.exit().remove();
-
-    circleEnter.merge(circleUpdate)
-        .attr('x', (d, i) => i * 16);
 
     dateCounter.text(data[0].date);
 
