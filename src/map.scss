@@ -1,3 +1,11 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
@@ -31,13 +39,38 @@ body {
     }
 
     .play-button {
-      &.playing {
-        background: lightpink;
+      &:after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        height: 20px;
+        border-style: double;
+        border-width: 0 0 0 17px;
+        border-color: transparent transparent transparent #22242D;
+      }
+
+      &.playing::after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        left: 2px;
+        border-style: solid;
+        border-width: 11px 0 11px 18px;
+        border-color: transparent transparent transparent #22242D;
       }
     }
 
     .reset-button {
       margin-right: 1.5em;
+      svg {
+        position: relative;
+        top: 3px;
+        left: 1px;
+        width: 26px;
+        height: 26px;
+      }
     }
   }
 }
