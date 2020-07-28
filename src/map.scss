@@ -16,7 +16,7 @@ body {
 .app {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 550px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
 
   .header {
@@ -38,29 +38,9 @@ body {
 
       li {
         margin: .5em 0;
-        padding: 0 0 0 1.25em;
 
-        &.bubble:before {
-          content: '';
-          margin-left: -1.25em;
-          display: inline-block;
-          width: .75em;
-          height: .75em;
-          margin-right: .5em;
-          border-radius: 50%;
-          opacity: .75;
-        }
-
-        &.red:before {
-          background: #f03b20;
-        }
-
-        &.orange:before {
-          background: #feb24c;
-        }
-
-        &.yellow:before {
-          background: #ffeda0;
+        & > svg {
+          float: left;
         }
       }
     }
