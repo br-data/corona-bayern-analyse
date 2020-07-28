@@ -83,7 +83,7 @@ async function init() {
 }
 
 async function loadTimelineData() {
-  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-timeline-daily.json');
+  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-timeline.json');
 }
 
 async function loadMetaData() {
