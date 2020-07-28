@@ -10,20 +10,67 @@ body {
   margin: 0;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   font-size: 1.2em;
+  color: #FFFFFF;
 }
 
 .map {
   position: relative;
   width: 100%;
-  height: 550px;
+  height: 600px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
+
+  .header {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    max-width: 50%;
+    font-size: 0.85em;
+
+    p {
+      margin-top: 0;
+    }
+  }
+
+  .legend {
+    ul {
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: .5em 0;
+        padding: 0 0 0 1.25em;
+
+        &.bubble:before {
+          content: '';
+          margin-left: -1.25em;
+          display: inline-block;
+          width: .75em;
+          height: .75em;
+          margin-right: .5em;
+          border-radius: 50%;
+          opacity: .75;
+        }
+
+        &.red:before {
+          background: #f03b20;
+        }
+
+        &.orange:before {
+          background: #feb24c;
+        }
+
+        &.yellow:before {
+          background: #ffeda0;
+        }
+      }
+    }
+  }
 
   .date {
     position: absolute;
     top: .5em;
     right: .5em;
-    font-size: 2em;
-    color: white;
+    font-size: 1.5em;
   }
 
   .controls {
@@ -34,8 +81,21 @@ body {
     display: flex;
     align-items: center;
 
-    .date-input {
+    .date-control {
       width: calc(100% - 100px);
+      margin-top: .25em;
+
+      .date-input {
+        width: 100%;
+      }
+
+      .date-labels {
+        color: #A1A5b5;
+        font-size: .75em;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
     .play-button {
@@ -44,10 +104,10 @@ body {
         display: inline-block;
         position: relative;
         top: 3px;
-        height: 20px;
-        border-style: double;
-        border-width: 0 0 0 17px;
-        border-color: transparent transparent transparent #22242D;
+        left: 2px;
+        border-style: solid;
+        border-width: 11px 0 11px 18px;
+        border-color: transparent transparent transparent #333541;
       }
 
       &.playing::after {
@@ -55,10 +115,11 @@ body {
         display: inline-block;
         position: relative;
         top: 3px;
-        left: 2px;
-        border-style: solid;
-        border-width: 11px 0 11px 18px;
-        border-color: transparent transparent transparent #22242D;
+        left: 0;
+        height: 20px;
+        border-style: double;
+        border-width: 0 0 0 17px;
+        border-color: transparent transparent transparent #333541;
       }
     }
 
@@ -67,7 +128,7 @@ body {
       svg {
         position: relative;
         top: 3px;
-        left: 1px;
+        left: 0;
         width: 26px;
         height: 26px;
       }
@@ -92,6 +153,7 @@ input[type=range] {
   -webkit-appearance: none;
   width: 100%;
   height: 1rem;
+  margin: 0;
   vertical-align: text-top;
   background: none;
 }

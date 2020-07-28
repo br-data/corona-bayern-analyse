@@ -84,7 +84,7 @@ async function init() {
       .attr('cx', d => projection([d.long, d.lat])[0])
       .attr('cy', d => projection([d.long, d.lat])[1]);
 
-    dateCounterElement.text(data[0].date);
+    dateCounterElement.text(toGermanDate(data[0].date));
     dateInput.property('value', index);
   }
 
@@ -156,6 +156,13 @@ async function init() {
   //     handleUpdate();
   //   }, 200);
   // };
+}
+
+function toGermanDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString('de-DE', options);
 }
 
 async function loadTimelineData() {
