@@ -1,5 +1,20 @@
-#map {
+body {
+  margin: 0;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+}
+
+.map {
+  position: relative;
   width: 100%;
   height: 500px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
+
+  .date {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    font-size: 2em;
+    color: white;
+  }
 }

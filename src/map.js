@@ -8,11 +8,14 @@ document.addEventListener('DOMContentLoaded', init, false);
 async function init() {
   const timelineDataPromise = loadTimelineData()
     .then(({ default: data }) => data);
+  const metaDataPromise = loadMetaData()
+    .then(({ default: data }) => data);
   const geoDataPromise = loadGeoData()
     .then(({ default: data }) => data);
-  const [timelineData, geoData] = await Promise.all([timelineDataPromise, geoDataPromise]);
+  const [timelineData, metaData, geoData] = await Promise.all([timelineDataPromise, metaDataPromise, geoDataPromise]);
 
-  const container = select('#map');
+  const container = select('.map');
+  const dateCounter = select('.date');
 
   const bounds = container.node().getBoundingClientRect();
   const width = bounds.width;
@@ -20,7 +23,7 @@ async function init() {
 
   const scale = scaleSqrt()
     .domain([0, 100])
-    .range([0, 10]);
+    .range([3, 12]);
 
   const svg = container.append('svg')
     .attr('width', width)
@@ -40,11 +43,16 @@ async function init() {
     .attr('stroke-width', 1.5);
 
   for (let data of timelineData) {
+    const mergedData = data.map(d => {
+      const meta = metaData.filter(md => md.ags === d.ags)[0];
+      return Object.assign({}, d, meta);
+    })
+
     const circleUpdate = svg.selectAll('circle')
-      .data(data, d => d.ags)
+      .data(mergedData, d => d.ags)
         .attr('fill', 'orange')
         .attr('fill-opacity', 0.75)
-        .attr('r', d => scale(d.valuePer100Tsd))
+        .attr('r', d => d.valuePer100Tsd ? scale(d.valuePer100Tsd) : 0)
 
     const circleEnter = circleUpdate
       .enter()
@@ -58,7 +66,9 @@ async function init() {
     circleEnter.merge(circleUpdate)
         .attr('x', (d, i) => i * 16);
 
-    await sleep(1000)
+    dateCounter.text(data[0].date);
+
+    await sleep(500)
   }
 
   // handleUpdate();
@@ -73,7 +83,11 @@ async function init() {
 }
 
 async function loadTimelineData() {
-  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-timeline.json');
+  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-timeline-daily.json');
+}
+
+async function loadMetaData() {
+  return await import(/* webpackChunkName: 'timeline-data' */ '../data/bayern-meta.json');
 }
 
 async function loadGeoData() {
