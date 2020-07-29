@@ -20,7 +20,6 @@ body {
   width: 100%;
   height: 550px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
-  height: 100%;
 
   .tooltip {
     pointer-events: none;
@@ -53,6 +52,7 @@ body {
     position: absolute;
     top: 1em;
     left: 1em;
+    right: 1em;
     max-width: 50%;
     font-size: 0.85em;
 
@@ -67,7 +67,7 @@ body {
       list-style: none;
 
       li {
-        margin: .5em 0;
+        margin: .5em 1em .5em 0;
 
         & > svg {
           float: left;
@@ -142,6 +142,37 @@ body {
         width: 26px;
         height: 26px;
       }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header {
+      max-width: 100%;
+    }
+
+    .legend {
+      user-select: none;
+
+      ul {
+        display: flex;
+
+        li {
+          margin: 0 1em 0 0;
+          font-size: 0.85em;
+          width: 100%;
+
+          svg {
+            margin-top: -5px;
+          }
+        }
+      }
+    }
+
+    .date {
+      top: initial;
+      right: 1rem;
+      bottom: 60px;
+      font-size: 1em;
     }
   }
 }

@@ -35,9 +35,8 @@ function draw() {
 
   projection = geoMercator()
     .translate([width/2, height/2])
-    .scale(4500)
-    .center([10.4, 48.9]);
-  // .center([11.4, 48.9]);
+    .scale((width > 600) ? 4500 : 4000)
+    .center((width > 600) ? [10.4, 48.9] : [11.4, 49.2]);
 
   const path = geoPath().projection(projection);
 
