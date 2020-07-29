@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 *, *:before, *:after {
@@ -11,6 +12,7 @@ body {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   font-size: 1.2em;
   color: #FFFFFF;
+  height: 100%;
 }
 
 .app {
@@ -18,6 +20,34 @@ body {
   width: 100%;
   height: 550px;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
+  height: 100%;
+
+  .tooltip {
+    pointer-events: none;
+    border-radius: 5px;
+    width: 240px;
+    min-height: 90px;
+    font-size: .85em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: white;
+    color: #333541;
+    padding: .35em .5em;
+    transition: opacity 200ms ease-out;
+
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 100%; /* At the bottom of the tooltip */
+      left: 50%;
+      margin-left: -16px;
+      border-width: 16px;
+      border-style: solid;
+      border-color: #FFFFFF transparent transparent transparent;
+    }
+  }
 
   .header {
     position: absolute;

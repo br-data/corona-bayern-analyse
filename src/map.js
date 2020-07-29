@@ -5,7 +5,7 @@ import { scaleSqrt } from 'd3-scale';
 import 'd3-transition';
 
 let timelineData, metaData, geoData;
-let playButton, resetButton, dateInput, dateCounterElement;
+let playButton, resetButton, dateInput, dateElement, tooltipElement;
 let map, projection, scale, animation, timeout;
 
 (async function init() {
@@ -68,20 +68,13 @@ function update(data, index) {
   const circleUpdate = map.selectAll('circle')
     .data(mergedData, d => d.ags)
     .attr('fill-opacity', 0.75)
-    .on('mouseenter', d => console.log(d))
+    .on('mouseenter', handleMouseenter)
+    .on('mouseleave', handleMouseleave);
 
   circleUpdate
     .transition()
     .duration(500)
-    .attr('fill', d => {
-      if (d.valuePer100Tsd >= 50) {
-        return '#f03b20'; // red
-      } else if (d.valuePer100Tsd >= 35) {
-        return '#feb24c'; // orange
-      } else {
-        return '#ffeda0'; // yellow
-      }
-    })
+    .attr('fill', d => getColor(d.valuePer100Tsd))
     .attr('r', d => d.valuePer100Tsd ? scale(d.valuePer100Tsd) : 0);
 
   circleUpdate
@@ -90,7 +83,7 @@ function update(data, index) {
     .attr('cx', d => projection([d.long, d.lat])[0])
     .attr('cy', d => projection([d.long, d.lat])[1]);
 
-  dateCounterElement.text(germanDate(data[0].date));
+  dateElement.text(germanDate(data[0].date));
   dateInput.property('value', index);
 }
 
@@ -104,7 +97,8 @@ function registerEvents() {
   dateInput = select('.date-input')
   dateInput.on('input', handleInput);
 
-  dateCounterElement = select('.date');
+  dateElement = select('.date');
+  tooltipElement = select('.tooltip')
 
   select(window).on('resize', handleResize);
 }
@@ -133,6 +127,22 @@ function handleInput() {
   animation.stop();
   animation.set(value);
   playButton.classed('playing', false);
+}
+
+function handleMouseenter(d) {
+  console.log('enter', d);
+  
+  if (animation.status().isPlaying === false) {
+    tooltipElement.style('opacity', 1);
+    tooltipElement.style('left', `${projection([d.long, d.lat])[0] - 120}px`);
+    tooltipElement.style('top', `${projection([d.long, d.lat])[1] - 120}px`);
+    tooltipElement.html(`<span><strong>${d.name} (${d.type}):</strong> ${d.valuePer100Tsd} ${d.valuePer100Tsd > 1 ? 'neue Fälle' : 'neuer Fall'} pro 100.000 Einwohner in der letzten Woche</span>`);
+  }
+}
+
+function handleMouseleave() {
+  console.log('leave');
+  tooltipElement.style('opacity', 0);
 }
 
 function handleResize() {
@@ -171,7 +181,24 @@ function animationControl() {
     isPlaying = false;
   }
 
-  return { set, start, stop }
+  function status() {
+    return { isPlaying, currentIndex }
+  }
+
+  return { set, start, stop, status }
+}
+
+function getColor(value) {
+  if (value >= 50) {
+    // red
+    return '#f03b20';
+  } else if (value >= 35) {
+    // orange
+    return '#feb24c';
+  } else {
+    // yellow
+    return '#ffeda0';
+  }
 }
 
 function germanDate(dateString) {
