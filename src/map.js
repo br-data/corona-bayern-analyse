@@ -31,7 +31,7 @@ function draw() {
 
   scale = scaleSqrt()
     .domain([0, 100])
-    .range([3, 12]);
+    .range([3, 11]);
 
   projection = geoMercator()
     .translate([width/2, height/2])
