@@ -140,7 +140,7 @@ body {
       svg {
         position: relative;
         top: 3px;
-        left: 1px;
+        left: 0;
         width: 25px;
         height: 25px;
       }
@@ -156,13 +156,15 @@ body {
       user-select: none;
 
       ul {
-        display: flex;
-        margin-top: -.25em;
+        margin-top: -.5em;
 
         li {
-          margin: 0 1em 0 0;
+          display: inline-block;
+          margin: .25em .25em .25em 0;
           font-size: 0.85em;
-          width: 100%;
+          width: 30%;
+          min-width: 120px;
+          vertical-align: top;
 
           svg {
             margin-top: -5px;
