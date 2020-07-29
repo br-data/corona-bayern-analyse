@@ -16,6 +16,7 @@ body {
 }
 
 .app {
+  display: block;
   position: relative;
   width: 100%;
   height: 550px;
@@ -23,13 +24,14 @@ body {
 
   .tooltip {
     pointer-events: none;
-    border-radius: 5px;
-    width: 240px;
-    min-height: 90px;
-    font-size: .85em;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1000;
+    width: 240px;
+    min-height: 90px;
+    font-size: .85em;
+    border-radius: 5px;
     opacity: 0;
     background: white;
     color: #333541;
@@ -49,6 +51,7 @@ body {
   }
 
   .header {
+    pointer-events: none;
     position: absolute;
     top: 1em;
     left: 1em;
@@ -93,10 +96,9 @@ body {
 
     .date-control {
       width: calc(100% - 100px);
-      margin-top: .25em;
 
       .date-input {
-        width: 100%;
+        margin-bottom: 5px;
       }
 
       .date-labels {
@@ -193,10 +195,10 @@ button {
 
 input[type=range] {
   -webkit-appearance: none;
+  vertical-align: middle;
   width: 100%;
-  height: 1rem;
   margin: 0;
-  vertical-align: text-top;
+  padding: 0;
   background: none;
 }
 
