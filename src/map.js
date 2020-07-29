@@ -36,7 +36,7 @@ function draw() {
   projection = geoMercator()
     .translate([width/2, height/2])
     .scale((width > 600) ? 4500 : 4000)
-    .center((width > 600) ? [10.4, 48.9] : [11.4, 49.2]);
+    .center((width > 600) ? [10.4, 48.9] : [11.4, 49.1]);
 
   const path = geoPath().projection(projection);
 
@@ -72,7 +72,7 @@ function update(data, index) {
 
   circleUpdate
     .transition()
-    .duration(500)
+    .duration(300)
     .attr('fill', d => getColor(d.valuePer100Tsd))
     .attr('r', d => d.valuePer100Tsd ? scale(d.valuePer100Tsd) : 0);
 
@@ -117,7 +117,7 @@ function handleReset() {
   setTimeout(() => {
     animation.set(0);
     animation.start();
-  }, 500);
+  }, 300);
 }
 
 function handleInput() {
@@ -147,7 +147,7 @@ function handleResize() {
     animation.stop();
     animation.set(0);
     draw();
-  }, 500);
+  }, 300);
 }
 
 function animationControl() {
@@ -159,8 +159,10 @@ function animationControl() {
     if (index < maxIndex && isPlaying) {
       update(timelineData[index], index);
       currentIndex = ++index;
-      // await sleep(500);
-      setTimeout(() => tick(currentIndex), 500);
+      setTimeout(() => tick(currentIndex), 300);
+    } else if (isPlaying) {
+      currentIndex = 0;
+      setTimeout(() => tick(currentIndex), 300);
     }
   }
 
@@ -215,11 +217,3 @@ async function loadMetaData() {
 async function loadGeoData() {
   return await import(/* webpackChunkName: 'geo-data' */ '../data/bayern-counties.geo.json');
 }
-
-// async function sleep(milliseconds) {
-//   return new Promise(resolve  => {
-//     setTimeout(() => {
-//       resolve(true);
-//     }, milliseconds);
-//   });
-// }
