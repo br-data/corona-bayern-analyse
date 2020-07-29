@@ -19,7 +19,7 @@ let map, projection, scale, animation, timeout;
 
   registerEvents();
   draw();
-})()
+})();
 
 function draw() {
   const container = select('.app');
@@ -37,7 +37,7 @@ function draw() {
     .translate([width/2, height/2])
     .scale(4500)
     .center([10.4, 48.9]);
-    // .center([11.4, 48.9]);
+  // .center([11.4, 48.9]);
 
   const path = geoPath().projection(projection);
 
@@ -63,7 +63,7 @@ function update(data, index) {
   const mergedData = data.map(d => {
     const meta = metaData.filter(md => md.ags === d.ags)[0];
     return Object.assign({}, d, meta);
-  })
+  });
 
   const circleUpdate = map.selectAll('circle')
     .data(mergedData, d => d.ags)
@@ -94,11 +94,11 @@ function registerEvents() {
   resetButton = select('.reset-button');
   resetButton.on('click', handleReset);
 
-  dateInput = select('.date-input')
+  dateInput = select('.date-input');
   dateInput.on('input', handleInput);
 
   dateElement = select('.date');
-  tooltipElement = select('.tooltip')
+  tooltipElement = select('.tooltip');
 
   select(window).on('resize', handleResize);
 }
@@ -130,8 +130,6 @@ function handleInput() {
 }
 
 function handleMouseenter(d) {
-  console.log('enter', d);
-  
   if (animation.status().isPlaying === false) {
     tooltipElement.style('opacity', 1);
     tooltipElement.style('left', `${projection([d.long, d.lat])[0] - 120}px`);
@@ -141,7 +139,6 @@ function handleMouseenter(d) {
 }
 
 function handleMouseleave() {
-  console.log('leave');
   tooltipElement.style('opacity', 0);
 }
 
@@ -182,10 +179,10 @@ function animationControl() {
   }
 
   function status() {
-    return { isPlaying, currentIndex }
+    return { isPlaying, currentIndex };
   }
 
-  return { set, start, stop, status }
+  return { set, start, stop, status };
 }
 
 function getColor(value) {
@@ -227,4 +224,3 @@ async function loadGeoData() {
 //     }, milliseconds);
 //   });
 // }
-
