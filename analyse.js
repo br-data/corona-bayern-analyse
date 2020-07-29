@@ -26,7 +26,7 @@ const weeklyCasesByDayAndCounty = weeklyCasesByDay.map((day, index) => {
       date: county.date,
       value: countyCasesSum,
       valuePer100Tsd: casesPer100Tsd
-    }
+    };
   });
 });
 
@@ -43,7 +43,7 @@ fs.writeFileSync('./data/bayern-timeline.json', JSON.stringify(weeklyCasesByDayA
 //       date: county.date,
 //       value: county.value,
 //       valuePer100Tsd: Math.round((county.value * 100000) / countyMeta.pop)
-//     }
+//     };
 //   });
 // });
 
