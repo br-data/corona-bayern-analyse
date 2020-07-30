@@ -81,9 +81,9 @@ body {
 
   .date {
     position: absolute;
-    top: .5em;
-    right: .5em;
-    font-size: 1.5em;
+    bottom: 60px;
+    right: 1em;
+    font-size: 1em;
   }
 
   .controls {
@@ -171,13 +171,6 @@ body {
           }
         }
       }
-    }
-
-    .date {
-      top: initial;
-      right: 1rem;
-      bottom: 60px;
-      font-size: 1em;
     }
   }
 }
