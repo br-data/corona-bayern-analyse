@@ -8,18 +8,19 @@ html {
 }
 
 body {
+  height: 100%;
   margin: 0;
+  overflow: hidden;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   font-size: 1.2em;
   color: #FFFFFF;
-  height: 100%;
 }
 
 .app {
   display: block;
   position: relative;
   width: 100%;
-  height: 550px;
+  height: 100%;
   background: radial-gradient(ellipse at center,#484B5A 0,#1D2029 100%);
 
   .tooltip {
@@ -80,6 +81,7 @@ body {
   }
 
   .date {
+    pointer-events: none;
     position: absolute;
     bottom: 60px;
     right: 1em;

@@ -133,7 +133,7 @@ function handleMouseenter(d) {
     tooltipElement.style('opacity', 1);
     tooltipElement.style('left', `${projection([d.long, d.lat])[0] - 120}px`);
     tooltipElement.style('top', `${projection([d.long, d.lat])[1] - 120}px`);
-    tooltipElement.html(`<span><strong>${d.name} (${d.type}):</strong> ${d.valuePer100Tsd} ${d.valuePer100Tsd > 1 ? 'neue Fälle' : 'neuer Fall'} pro 100.000 Einwohner in der letzten Woche</span>`);
+    tooltipElement.html(`<span><strong>${d.name} (${d.type}):</strong> ${d.valuePer100Tsd} ${d.valuePer100Tsd > 1 ? 'neue Fälle' : 'neuer Fall'} pro 100.000 Einwohner in den vergangenen 7 Tagen</span>`);
   }
 }
 
