@@ -1,5 +1,6 @@
 import './map.scss';
 import { select } from 'd3-selection';
+import { max } from 'd3-array';
 import { geoPath, geoMercator } from 'd3-geo';
 import { scaleSqrt } from 'd3-scale';
 import 'd3-transition';
@@ -29,9 +30,11 @@ function draw() {
   const width = bounds.width;
   const height = bounds.height;
 
+  const maxValue = max(timelineData.map(td => max(td, d => d.valuePer100Tsd)));
+
   scale = scaleSqrt()
-    .domain([0, 100])
-    .range([3, 11]);
+    .domain([0, maxValue])
+    .range([3, 15]);
 
   projection = geoMercator()
     .translate([width/2, height/2])
@@ -54,7 +57,7 @@ function draw() {
     .attr('stroke', '#3A3C49')
     .attr('stroke-width', 1.5);
 
-  animation = animationControl();
+  animation = new AnimationControl();
   animation.start();
 }
 
@@ -150,7 +153,7 @@ function handleResize() {
   }, 300);
 }
 
-function animationControl() {
+function AnimationControl() {
   let isPlaying = false;
   let maxIndex = timelineData.length;
   let currentIndex = 0;
