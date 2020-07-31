@@ -16,6 +16,7 @@
     "url": "git@github.com:br-data/corona-bayern-analyse.git"
   },
   "dependencies": {
+    "d3-array": "^2.5.0",
     "d3-geo": "^1.12.1",
     "d3-scale": "^3.2.1",
     "d3-selection": "^1.4.2",
