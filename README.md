@@ -2,8 +2,8 @@
 
 Die interaktive Karte zeigt die Entwicklung der Corona-Pandemie in Bayern, ein halbes Jahr nach Bekanntwerden des ersten Falls. Der Fokus liegt dabei auf der schrittweisen Ausbreitung und den besonders betroffenen Städten und Landkreisen in Bayern.
 
-**Artikel:** <https://www.br.de/nachrichten/bayern/der-weg-des-coronavirus-durch-bayern-eine-datenanalyse,S6Cc5Jq>
-**Karte:** <https://web.br.de/interaktiv/corona-rueckblick/>
+- **Artikel:** <https://www.br.de/nachrichten/bayern/der-weg-des-coronavirus-durch-bayern-eine-datenanalyse,S6Cc5Jq>
+- **Karte:** <https://web.br.de/interaktiv/corona-rueckblick/>
 
 ## Verwendung
 
