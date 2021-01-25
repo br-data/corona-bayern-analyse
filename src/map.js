@@ -131,7 +131,9 @@ function handleInput() {
   playButton.classed('playing', false);
 }
 
-function handleMouseenter(d) {
+function handleMouseenter() {
+  const d = select(this).datum();
+
   if (animation.status().isPlaying === false) {
     tooltipElement.style('opacity', 1);
     tooltipElement.style('left', `${projection([d.long, d.lat])[0] - 120}px`);
