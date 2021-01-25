@@ -71,10 +71,11 @@ body {
       list-style: none;
 
       li {
-        margin: .5em 1em .5em 0;
+        margin: 0 1em 0 0;
 
         & > svg {
-          float: left;
+          display: inline;
+          vertical-align: middle;
         }
       }
     }

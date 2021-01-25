@@ -34,7 +34,7 @@ function draw() {
 
   scale = scaleSqrt()
     .domain([0, maxValue])
-    .range([3, 15]);
+    .range([3, 20]);
 
   projection = geoMercator()
     .translate([width/2, height/2])
@@ -69,7 +69,7 @@ function update(data, index) {
 
   const circleUpdate = map.selectAll('circle')
     .data(mergedData, d => d.ags)
-    .attr('fill-opacity', 0.75)
+    .style('mix-blend-mode', 'hard-light')
     .on('mouseenter', handleMouseenter)
     .on('mouseleave', handleMouseleave);
 
@@ -190,7 +190,10 @@ function AnimationControl() {
 }
 
 function getColor(value) {
-  if (value >= 50) {
+  if (value >= 200) {
+    // dark red
+    return '#bd0026';
+  } else if (value >= 50) {
     // red
     return '#f03b20';
   } else if (value >= 35) {
